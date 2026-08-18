@@ -1,0 +1,15 @@
+{
+  "name": "sparklepor-cleaning",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite --port=3000 --host=0.0.0.0",
+    "build": "mkdir -p dist && cp index.html style.css script.js dist/ && cp -r assets dist/",
+    "preview": "vite preview",
+    "lint": "echo 'No linting needed for vanilla JS'"
+  },
+  "devDependencies": {
+    "vite": "^6.2.3"
+  }
+}
