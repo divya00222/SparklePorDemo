@@ -130,4 +130,46 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Image Skeleton Loading
+    const initImageSkeletons = () => {
+        const images = document.querySelectorAll('img');
+        
+        images.forEach(img => {
+            // Skip icons, small images, or images that shouldn't have skeletons
+            if (img.width < 50 && img.height < 50 && img.complete) return;
+            if (img.closest('.logo') || img.closest('.footer-logo')) return;
+            
+            let skeleton = img.closest('.image-skeleton');
+            
+            // If the image is not already wrapped in a skeleton, wrap it
+            if (!skeleton) {
+                skeleton = document.createElement('div');
+                skeleton.className = 'image-skeleton';
+                img.parentNode.insertBefore(skeleton, img);
+                skeleton.appendChild(img);
+            }
+
+            const handleLoad = () => {
+                skeleton.classList.remove('image-loading');
+                skeleton.classList.add('image-loaded');
+            };
+
+            const handleError = () => {
+                skeleton.classList.remove('image-loading');
+                skeleton.classList.add('image-error');
+            };
+
+            // Set initial state
+            skeleton.classList.add('image-loading');
+
+            if (img.complete) {
+                handleLoad();
+            } else {
+                img.addEventListener('load', handleLoad);
+                img.addEventListener('error', handleError);
+            }
+        });
+    };
+    initImageSkeletons();
 });

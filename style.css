@@ -1,5 +1,5 @@
 /* 
-   SparklePor Cleaning Services - Premium Stylesheet
+   SparklePro Cleaning Services - Premium Stylesheet
    Vanilla CSS with Variables for easy customization
 */
 
@@ -961,6 +961,73 @@ img {
 }
 
 .footer-legal span { margin: 0 10px; }
+
+/* Skeleton Loading Effect */
+.image-skeleton {
+    position: relative;
+    overflow: hidden;
+    background-color: #f1f5f9; /* Slate 100 */
+    border-radius: var(--border-radius);
+    display: block;
+}
+
+.image-skeleton::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.4),
+        transparent
+    );
+    animation: shimmer 1.5s infinite;
+    z-index: 1;
+}
+
+@keyframes shimmer {
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+.image-skeleton img {
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.image-skeleton.image-loaded img {
+    opacity: 1;
+}
+
+.image-skeleton.image-loaded::after {
+    display: none;
+}
+
+.image-skeleton.image-error::after {
+    animation: none;
+    background: #fee2e2; /* Red 100 for error state */
+}
+
+/* Specific skeleton dimensions to prevent layout shift */
+.hero-image .image-skeleton,
+.featured-image .image-skeleton,
+.about-image .image-skeleton {
+    min-height: 400px;
+    width: 100%;
+}
+
+.comparison-side .image-skeleton {
+    height: 350px;
+    width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .image-skeleton::after {
+        animation: none;
+    }
+}
 
 /* Responsive */
 @media (max-width: 1024px) {
